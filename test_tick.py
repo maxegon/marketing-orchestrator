@@ -77,6 +77,12 @@ class Dispatch(unittest.TestCase):
 
 
 class Main(unittest.TestCase):
+    # stdout silenziato: il messaggio ::error:: del test senza token diventerebbe un'annotazione di errore su GitHub
+    def run(self, result=None):
+        import contextlib, io
+        with contextlib.redirect_stdout(io.StringIO()):
+            return super().run(result)
+
     def test_dry_run_senza_token(self):
         self.assertEqual(tick.main(["--dry-run", "--ora", "20:00"]), 0)
 
