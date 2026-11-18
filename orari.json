@@ -1,0 +1,291 @@
+{
+ "_nota": "Orari in ora di Roma (Europe/Rome, l'ora legale la gestisce tick.py). Minuti multipli di 5: cron-job.org lancia tick ogni 5 minuti. Ricavati dai cron dei workflow delle 4 app il 19/11/2026.",
+ "owner": "maxegon",
+ "jobs": [
+  {
+   "ora": "06:30",
+   "repo": "solo1meteo",
+   "workflow": "marketing-render.yml",
+   "inputs": {
+    "azione": "genera",
+    "publish_assets": "true",
+    "anteprima": "true"
+   }
+  },
+  {
+   "ora": "07:15",
+   "repo": "solo1meteo",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "07:30",
+   "repo": "SportViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "07:30",
+   "repo": "showviewlens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "08:05",
+   "repo": "solo1meteo",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "08:35",
+   "repo": "solo1meteo",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "09:05",
+   "repo": "solo1meteo",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "09:15",
+   "repo": "SportViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "10:15",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "11:05",
+   "repo": "SportViewLens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "11:05",
+   "repo": "showviewlens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "11:30",
+   "repo": "showviewlens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "11:30",
+   "repo": "solo1meteo",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "11:35",
+   "repo": "SportViewLens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "11:35",
+   "repo": "showviewlens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "11:45",
+   "repo": "SportViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "12:00",
+   "repo": "showviewlens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "12:15",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "13:05",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "13:35",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "14:30",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-render.yml",
+   "inputs": {
+    "azione": "oggi",
+    "publish_assets": "true",
+    "anteprima": "true"
+   }
+  },
+  {
+   "ora": "14:45",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "15:30",
+   "repo": "showviewlens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "15:30",
+   "repo": "solo1meteo",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "17:00",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "17:00",
+   "repo": "showviewlens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "17:15",
+   "repo": "showviewlens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "17:15",
+   "repo": "solo1meteo",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "17:30",
+   "repo": "SportViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "18:00",
+   "repo": "SportViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "18:15",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "18:30",
+   "repo": "showviewlens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "18:35",
+   "repo": "SportViewLens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "18:35",
+   "repo": "showviewlens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "19:05",
+   "repo": "SportViewLens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "19:05",
+   "repo": "showviewlens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "19:35",
+   "repo": "showviewlens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "19:45",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "20:00",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-render.yml",
+   "inputs": {
+    "azione": "genera",
+    "publish_assets": "true",
+    "anteprima": "true"
+   }
+  },
+  {
+   "ora": "20:00",
+   "repo": "SportViewLens",
+   "workflow": "marketing-render.yml",
+   "inputs": {
+    "azione": "genera",
+    "publish_assets": "true",
+    "anteprima": "true"
+   }
+  },
+  {
+   "ora": "20:00",
+   "repo": "showviewlens",
+   "workflow": "marketing-render.yml",
+   "inputs": {
+    "azione": "genera",
+    "publish_assets": "true",
+    "anteprima": "true"
+   }
+  },
+  {
+   "ora": "20:00",
+   "repo": "solo1meteo",
+   "workflow": "marketing-render.yml",
+   "inputs": {
+    "azione": "genera",
+    "publish_assets": "true",
+    "anteprima": "true"
+   }
+  },
+  {
+   "ora": "20:05",
+   "repo": "showviewlens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "20:35",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "21:05",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-storie.yml"
+  },
+  {
+   "ora": "21:30",
+   "repo": "SportViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "21:30",
+   "repo": "showviewlens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "21:30",
+   "repo": "solo1meteo",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "21:45",
+   "repo": "PodcastViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "23:30",
+   "repo": "SportViewLens",
+   "workflow": "marketing-scelte.yml"
+  },
+  {
+   "ora": "23:30",
+   "repo": "showviewlens",
+   "workflow": "marketing-scelte.yml"
+  }
+ ]
+}

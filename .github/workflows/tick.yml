@@ -1,0 +1,53 @@
+# Lanciato da cron-job.org ogni 5 minuti (06:00-23:55 ora di Roma). Niente schedule di GitHub: è proprio il suo ritardo
+# (6-9 ore sui repo privati, 12-18/11/2026) che questo repo aggira. Repo pubblico = minuti di Actions gratuiti.
+# Secret: ORCH_TOKEN = PAT fine-grained con Actions read/write su PodcastViewLens, showviewlens, SportViewLens, solo1meteo.
+name: tick
+run-name: "tick ${{ inputs.ora || '' }}${{ inputs.dry_run && ' dry-run' || '' }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      ora:
+        description: "Forza lo slot HH:MM (ora di Roma). Vuoto = ora di creazione della run, arrotondata ai 5 minuti"
+        required: false
+        default: ""
+      dry_run:
+        description: "Mostra cosa lancerebbe senza lanciare"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read   # legge l'ora di creazione della propria run
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            tick.py
+            test_tick.py
+            orari.json
+          sparse-checkout-cone-mode: false
+          fetch-depth: 1
+
+      - name: Selftest
+        run: python3 test_tick.py -q
+
+      - name: Lancia i giri di questo slot
+        env:
+          ORCH_TOKEN: ${{ secrets.ORCH_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          ORA: ${{ inputs.ora }}
+          DRY: ${{ inputs.dry_run }}
+        run: |
+          # Ora di creazione della run (= quando cron-job.org ha chiamato), non di avvio del runner.
+          export RUN_CREATED_AT="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" -q .created_at)"
+          ARGS=()
+          if [ -n "$ORA" ]; then ARGS+=(--ora "$ORA"); fi
+          if [ "$DRY" = true ]; then ARGS+=(--dry-run); fi
+          echo "run creata: $RUN_CREATED_AT"
+          python3 tick.py "${ARGS[@]}"
