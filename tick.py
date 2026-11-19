@@ -70,6 +70,26 @@ def due(cfg, hhmm):
     return [j for j in cfg["jobs"] if j["ora"] == hhmm]
 
 
+def _shift(hhmm, minuti):
+    m = (int(hhmm[:2]) * 60 + int(hhmm[3:]) + minuti) % (24 * 60)
+    return f"{m // 60:02d}:{m % 60:02d}"
+
+
+def mancanti(hhmm, slot_precedenti, indietro=2):
+    """Slot persi subito prima di hhmm (max `indietro` x 5 min), es. cron-job.org che riceve un 502 e non crea la run.
+    Recupera solo se il ticker era attivo: deve esserci almeno una run nei 30 minuti prima."""
+    visti = set(slot_precedenti)
+    if not any(_shift(hhmm, -5 * k) in visti for k in range(1, 7)):
+        return []
+    out = []
+    for k in range(1, indietro + 1):
+        s = _shift(hhmm, -5 * k)
+        if s in visti:
+            break
+        out.append(s)
+    return sorted(out)
+
+
 def http_dispatch(url, body, token):
     req = urllib.request.Request(url, data=json.dumps(body).encode(), method="POST", headers={
         "Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json",
@@ -124,6 +144,13 @@ def main(argv=None):
         hhmm = slot(dt.datetime.fromisoformat(iso.replace("Z", "+00:00")))
     giri = due(cfg, hhmm)
     print(f"Slot {hhmm} (Roma): {len(giri)} giri")
+    if not a.ora:
+        prec = [slot(dt.datetime.fromisoformat(x.replace("Z", "+00:00")))
+                for x in os.environ.get("PREV_RUNS_CREATED_AT", "").split()]
+        for s in mancanti(hhmm, prec):
+            rec = due(cfg, s)
+            print(f"Slot {s} senza run (tick perso): recupero {len(rec)} giri")
+            giri = rec + giri
     if not giri:
         return 0
     token = os.environ.get("ORCH_TOKEN", "").strip()

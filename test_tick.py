@@ -41,6 +41,32 @@ class Orari(unittest.TestCase):
                                 "inputs": {"azione": "genera", "publish_assets": "true", "anteprima": "true"}}])
 
 
+class Recupero(unittest.TestCase):
+    def test_tick_perso(self):
+        self.assertEqual(tick.mancanti("09:45", ["09:30", "09:35"]), ["09:40"])
+
+    def test_due_persi(self):
+        self.assertEqual(tick.mancanti("09:45", ["09:20", "09:30"]), ["09:35", "09:40"])
+
+    def test_nessun_buco(self):
+        self.assertEqual(tick.mancanti("09:45", ["09:35", "09:40"]), [])
+
+    def test_primo_tick_del_mattino_non_recupera_la_notte(self):
+        self.assertEqual(tick.mancanti("06:00", ["23:55"]), [])
+
+    def test_main_recupera(self):
+        import contextlib, io, os
+        os.environ["PREV_RUNS_CREATED_AT"] = "2026-11-19T18:45:02Z 2026-11-19T18:50:01Z"
+        buf = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(buf):
+                rc = tick.main(["--dry-run", "--adesso", "2026-11-19T19:00:03Z"])
+        finally:
+            os.environ.pop("PREV_RUNS_CREATED_AT")
+        self.assertEqual(rc, 0)
+        self.assertIn("Slot 19:55 senza run", buf.getvalue())
+
+
 class Dispatch(unittest.TestCase):
     J = {"repo": "r", "workflow": "w.yml", "inputs": {"azione": "oggi"}}
 
